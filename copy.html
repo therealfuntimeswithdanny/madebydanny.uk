@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Manual URL Copier</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 20px 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    input[type="text"] {
+      width: 300px;
+      padding: 8px;
+      font-size: 16px;
+      text-align: center;
+      margin-top: 10px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #007bff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #message {
+      margin-top: 15px;
+      display: none;
+      padding: 10px;
+      border: 1px solid #c3e6cb;
+      background-color: #d4edda;
+      color: #155724;
+      border-radius: 4px;
+    }
+    #infoText {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <p id="infoText">Click the button to copy the full URL provided in the link parameter:</p>
+    <input type="text" id="urlInput" readonly>
+    <br>
+    <button id="copyBtn">Copy URL</button>
+    <div id="message"></div>
+  </div>
+
+  <script>
+    // Retrieve a query parameter by name from the URL.
+    function getQueryParam(name) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(name);
+    }
+    
+    // Try to copy the provided text using the Clipboard API and fallback if needed.
+    async function copyText(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        try {
+          await navigator.clipboard.writeText(text);
+          return true;
+        } catch (error) {
+          console.error('Clipboard API failed:', error);
+        }
+      }
+      // Fallback using execCommand
+      const inputField = document.getElementById('urlInput');
+      inputField.select();
+      try {
+        const successful = document.execCommand('copy');
+        if (successful) return true;
+      } catch (fallbackError) {
+        console.error('Fallback copy failed:', fallbackError);
+      }
+      return false;
+    }
+    
+    // Display a feedback message and close the page after 2 seconds.
+    function showMessageAndClose(message) {
+      const messageDiv = document.getElementById('message');
+      messageDiv.textContent = message;
+      messageDiv.style.display = 'block';
+      setTimeout(() => {
+        window.close();
+        window.location.href = "about:blank";
+      }, 2000);
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParam = getQueryParam('link');
+      const urlInput = document.getElementById('urlInput');
+      const copyBtn = document.getElementById('copyBtn');
+      const infoText = document.getElementById('infoText');
+
+      if (!urlParam) {
+        infoText.textContent = 'No link parameter provided in the URL.';
+        urlInput.value = '';
+        copyBtn.disabled = true;
+        return;
+      }
+      
+      // Display the full URL in the input field.
+      urlInput.value = urlParam;
+      
+      // Always require the user to press the button.
+      copyBtn.addEventListener('click', async () => {
+        const success = await copyText(urlParam);
+        if (success) {
+          showMessageAndClose(`Successfully copied: ${urlParam}`);
+        } else {
+          showMessageAndClose(`Failed to copy: ${urlParam}`);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

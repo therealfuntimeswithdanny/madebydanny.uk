@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- =================================================================== -->
+    <!-- Basic Meta Tags & SEO -->
+    <!-- =================================================================== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="fediverse:creator" content="@danielmorrisey@mastodon.social">
+    <title>Danny's Blog</title>
+    <meta name="description" content="Welcome to Danny's Blog! Explore articles on the latest in tech like the iPhone and WWDC, gaming adventures in Raft, and web topics like RSS and Bluesky.">
+    <link rel="canonical" href="https://madebydanny.uk/blog/">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://blog-bg3.pages.dev/blog/img/icon.jpg" type="image/jpeg">
+    <link rel="apple-touch-icon" href="https://blog-bg3.pages.dev/blog/img/icon.jpg">
+
+    <!-- =================================================================== -->
+    <!-- Open Graph / Social Media Meta Tags -->
+    <!-- =================================================================== -->
+    <meta property="og:title" content="Danny's Blog | Tech, Gaming, and Web Development Insights">
+    <meta property="og:description" content="Explore articles on the latest in tech, gaming, and the web.">
+    <meta property="og:url" content="https://madebydanny.uk/blog/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://static.madebydanny.uk/img/Designer.png">
+    <meta property="og:image:alt" content="A vibrant graphic banner for Danny's Blog.">
+    <meta property="og:site_name" content="Danny's Blog">
+    <!-- For Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Danny's Blog | Tech, Gaming, and Web Development Insights">
+    <meta name="twitter:description" content="Explore articles on the latest in tech, gaming, and the web.">
+    <meta name="twitter:image" content="https://static.madebydanny.uk/img/Designer.png">
+
+    <!-- =================================================================== -->
+    <!-- External Libraries & Fonts -->
+    <!-- =================================================================== -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/0ca27f8db1.js" crossorigin="anonymous"></script>
+
+    <!-- =================================================================== -->
+    <!-- Custom Styles & Tailwind Config -->
+    <!-- =================================================================== -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* A soft, light grey background */
+        }
+        .btn {
+            @apply inline-block bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg shadow-md transition-transform transform hover:bg-blue-700 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500;
+        }
+        .card {
+            @apply bg-white rounded-xl shadow-lg overflow-hidden transition-shadow duration-300 hover:shadow-2xl mb-8;
+        }
+        .card-content {
+            @apply p-6 md:p-8;
+        }
+        .social-icon {
+            @apply text-gray-500 hover:text-blue-600 transition-colors text-2xl;
+        }
+        .sidebar-widget {
+             @apply bg-white rounded-xl shadow-lg p-6 mb-8;
+        }
+    </style>
+
+    <!-- =================================================================== -->
+    <!-- JSON-LD Structured Data for SEO -->
+    <!-- =================================================================== -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": "Danny's Blog",
+      "url": "https://madebydanny.uk/blog/",
+      "description": "Daniel Morrisey's awesome blog about technology, gaming, and web development.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Funtimes Media",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://static.madebydanny.uk/img/Designer.png"
+        }
+      },
+      "blogPost": [
+        {
+          "@type": "BlogPosting",
+          "mainEntityOfPage": { "@type": "WebPage", "@id": "https://madebydanny.uk/blog/neverunresolved/index.html" },
+          "headline": "Don't Leave Domains Unresolved", "author": { "@type": "Person", "name": "Daniel Morrisey" }
+        },
+        {
+          "@type": "BlogPosting",
+          "mainEntityOfPage": { "@type": "WebPage", "@id": "https://madebydanny.uk/blog/wwdc25/index.html" },
+          "headline": "WWDC25 is Right Around the Corner", "image": "https://static.madebydanny.uk/wwdc25/bafkreibmvjpbioecjhp4hqp3ozdeinwrut3ypws2pxvguklwlr3ak4jdm4.avif", "author": { "@type": "Person", "name": "Daniel Morrisey" }
+        },
+        {
+          "@type": "BlogPosting",
+          "mainEntityOfPage": { "@type": "WebPage", "@id": "https://madebydanny.uk/blog/rss-search.html" },
+          "headline": "Is RSS a new way to search?", "datePublished": "2025-06-03", "image": "https://static.madebydanny.uk/img/rss.avif", "author": { "@type": "Person", "name": "Daniel Morrisey", "url": "https://madebydanny.uk/startpage" }
+        },
+        {
+            "@type": "BlogPosting",
+            "mainEntityOfPage": { "@type": "WebPage", "@id": "https://madebydanny.uk/blog/going-green.html" },
+            "headline": "Going Green", "datePublished": "2025-05-30", "image": "https://static.madebydanny.uk/img/cloudflare-green.avif", "author": { "@type": "Person", "name": "Daniel Morrisey", "url": "https://madebydanny.uk/startpage" }
+        },
+        {
+            "@type": "BlogPosting",
+            "mainEntityOfPage": { "@type": "WebPage", "@id": "https://madebydanny.uk/blog/how-to-bluesky.html" },
+            "headline": "How to Bluesky", "datePublished": "2025-05-28", "image": "https://static.madebydanny.uk/img/bluesky_media_kit_banner_1.avif", "author": { "@type": "Person", "name": "Daniel Morrisey", "url": "https://madebydanny.uk/startpage" }
+        },
+        {
+            "@type": "BlogPosting",
+            "mainEntityOfPage": { "@type": "WebPage", "@id": "https://madebydanny.uk/blog/raft.html" },
+            "headline": "Raft", "datePublished": "2025-05-28", "image": "https://static.madebydanny.uk/img/raft.avif", "author": { "@type": "Person", "name": "Daniel Morrisey", "url": "https://madebydanny.uk/startpage" }
+        },
+        {
+            "@type": "BlogPosting",
+            "mainEntityOfPage": { "@type": "WebPage", "@id": "https://madebydanny.uk/blog/iphone-14.html" },
+            "headline": "The iPhone 14, Three years later", "datePublished": "2025-05-27", "image": "https://static.madebydanny.uk/img/iphone-14.avif", "author": { "@type": "Person", "name": "Daniel Morrisey", "url": "https://madebydanny.uk/startpage" }
+        }
+      ]
+    }
+    </script>
+</head>
+<body class="text-gray-800">
+
+    <!-- Main Content Container -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Header -->
+        <header class="text-center py-12 md:py-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">Danny's Blog</h1>
+            <p class="mt-3 text-lg text-gray-600 max-w-2xl mx-auto">Daniel Morrisey</p>
+        </header>
+
+        <!-- Main Grid Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 lg:gap-x-12">
+
+            <!-- Blog Entries Column -->
+            <main class="lg:col-span-2">
+
+                <!-- Blog Post: WWDC25 -->
+                <article class="card">
+                    <a href="/wwdc25/index.html"><img src="https://static.madebydanny.uk/wwdc25/bafkreibmvjpbioecjhp4hqp3ozdeinwrut3ypws2pxvguklwlr3ak4jdm4.avif" loading="lazy" alt="A colorful abstract graphic for Apple's WWDC25 event." class="w-full h-auto object-cover"></a>
+                    <div class="card-content">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-3"><a href="/wwdc25/index.html" class="hover:text-blue-600">WWDC25 is Right Around the Corner</a></h2>
+                        <p class="text-gray-600 mb-6">WWDC25 is in 5 days and I am pumped already. Get ready for the latest announcements from Apple.</p>
+                        <a href="/wwdc25/index.html" class="btn">Read More<i class="fa-solid fa-arrow-right ml-2"></i></a>
+                    </div>
+                </article>
+
+                <!-- Blog Post: RSS Search -->
+                <article class="card">
+                    <a href="rss-search.html"><img src="https://static.madebydanny.uk/img/rss.avif" loading="lazy" alt="An illustration of an RSS feed icon transforming into a search magnifying glass." class="w-full h-auto object-cover"></a>
+                    <div class="card-content">
+                        <div class="mb-4 text-sm text-gray-500">By <a href="https://madebydanny.uk/startpage" target="_blank" rel="noopener noreferrer" class="font-semibold hover:text-gray-900">Daniel Morrisey</a> &bull; <time datetime="2025-06-03">June 3, 2025</time></div>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-3"><a href="rss-search.html" class="hover:text-blue-600">Is RSS a New Way to Search?</a></h2>
+                        <p class="text-gray-600 mb-6">With the web becoming a mess of AI overviews and ads, could RSS feeds offer a cleaner, more direct way to find information?</p>
+                        <a href="rss-search.html" class="btn">Read More<i class="fa-solid fa-arrow-right ml-2"></i></a>
+                    </div>
+                </article>
+
+                <!-- Blog Post: How to Bluesky -->
+                <article class="card">
+                    <a href="how-to-bluesky.html"><img src="https://static.madebydanny.uk/img/bluesky_media_kit_banner_1.avif" loading="lazy" alt="The Bluesky social media logo with a bright blue sky background." class="w-full h-auto object-cover"></a>
+                    <div class="card-content">
+                        <div class="mb-4 text-sm text-gray-500">By <a href="https://madebydanny.uk/startpage" target="_blank" rel="noopener noreferrer" class="font-semibold hover:text-gray-900">Daniel Morrisey</a> &bull; <time datetime="2025-05-28">May 28, 2025</time></div>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-3"><a href="how-to-bluesky.html" class="hover:text-blue-600">How to Bluesky</a></h2>
+                        <p class="text-gray-600 mb-6">A guide to getting started with Bluesky, the decentralized social media platform doing things the right way.</p>
+                        <a href="how-to-bluesky.html" class="btn">Read More<i class="fa-solid fa-arrow-right ml-2"></i></a>
+                    </div>
+                </article>
+
+            </main>
+
+            <!-- Sidebar Column -->
+            <aside class="lg:col-span-1 mt-8 lg:mt-0">
+                <div class="sticky top-8">
+                    <!-- About Me Card -->
+                    <div class="sidebar-widget">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">About the Author</h3>
+                        <div class="flex items-center">
+                            <img src="https://cdn.bsky.app/img/avatar/plain/did:plc:tnnl6qjjj4lquabzmsuu34ip/bafkreifisvw5bxswgjqbvhy3bxqbv62djfp27ftrdh6oyczqzh745twyyu@jpeg" alt="Profile picture for Daniel Morrisey." class="w-16 h-16 rounded-full mr-4">
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Daniel Morrisey</h4>
+                                <p class="text-sm text-gray-600">13 / Front End Web Developer / Music Lover</p>
+                                <p class="text-sm text-gray-600"><a href="https://bsky.app/profile/madebydanny.uk"><i class="fa-brands fa-bluesky"></i></a> 
+                                  <a href="https://github.com/therealfuntimeswithdanny"><i class="fa-brands fa-github"></i></a> 
+                                  <a href="https://reddit.com/u/funtimeswithdanny"><i class="fa-brands fa-reddit"></i></a> 
+                                  <a href="https://danielmorrisey.start.page"><i class="fa-brands fa-buffer"></i></a>
+                                  <a href="/rss"><i class="fa-solid fa-rss"></i></a>
+                                  <a href="https://steamcommunity.com/id/MadeByDanny"><i class="fa-brands fa-steam"></i></a>
+                                  <a href="https://discord.com/users/1049123160055894107"><i class="fa-brands fa-discord"></i></a>
+                                  <a href="https://music.apple.com/us/playlist/my-mix/pl.u-leyl0JPHMvKe68X"><i class="fa-brands fa-apple"></i></a>
+                                  <a href="https://mastodon.social/@danielmorrisey"><i class="fa-brands fa-mastodon"></i></a>
+                                  <a href="https://www.threads.com/@funtimeswithdanny"><i class="fa-brands fa-threads"></i></a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                    <!-- Popular Posts Card -->
+                    <div class="sidebar-widget">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">Popular Posts</h3>
+                        <ul class="space-y-4">
+                            <li><a href="how-to-bluesky.html" class="text-gray-700 hover:text-blue-600 transition-colors block">How to Bluesky: Social Media the Right Way</a></li>
+                            <li><a href="raft.html" class="text-gray-700 hover:text-blue-600 transition-colors block">Raft: Why I'm in Love with this Game</a></li>
+                            <li><a href="iphone-14.html" class="text-gray-700 hover:text-blue-600 transition-colors block">The iPhone 14, Three Years Later</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-400 mt-16">
+        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center text-sm">
+            <p>&copy; 2024-2029 Made by Danny UK, a <a href="/funtimesmedia" class="font-semibold hover:text-white">Funtimes Media</a> Company.</p>
+            <p class="mt-1">Built with <a href="https://tailwindcss.com/" target="_blank" rel="noopener" class="font-semibold hover:text-white">Tailwind CSS</a> &bull; Hosted on <a href="https://www.cloudflare.com/" target="_blank" rel="noopener" class="font-semibold hover:text-white">Cloudflare</a><br><a rel="me" href="https://mastodon.social/@danielmorrisey">Mastodon</a></p>
+        </div>
+    </footer>
+</body>
+</html>
