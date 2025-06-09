@@ -11,8 +11,8 @@
     <link rel="canonical" href="https://madebydanny.uk/blog/how-to-bluesky">
     
     <!-- Favicon -->
-    <link rel="icon" href="https://old.madebydanny.uk/blog/img/icon.jpg" type="image/jpeg">
-    <link rel="apple-touch-icon" href="https://old.madebydanny.uk/blog/img/icon.jpg">
+    <link rel="icon" href="https://blog-bg3.pages.dev/blog/img/icon.jpg" type="image/jpeg">
+    <link rel="apple-touch-icon" href="https://blog-bg3.pages.dev/blog/img/icon.jpg">
 
     <!-- =================================================================== -->
     <!-- Open Graph / Social Media Meta Tags -->
@@ -117,17 +117,13 @@
         }
 
     </style>
-       <style>
+    <style>
         /* Custom CSS for apple red hover effect */
         .apple-red-hover:hover {
             color: #ff3b30; /* Apple Red color */
         }
-        body {
-            font-family: "Inter", sans-serif;
-            background-color: #f0f2f5; /* Light gray background */
-        }
         .video-player-wrapper {
-            position: relative; /* Needed for absolute positioning of controls */
+            position: relative; /* Needed for absolute positioning of controls and context menu */
             max-width: 800px;
             width: 100%;
             border-radius: 0.75rem; /* rounded-xl */
@@ -152,10 +148,11 @@
             display: flex;
             justify-content: center; /* Center existing controls */
             align-items: center;
-            gap: 1rem; /* Space between buttons - slightly adjusted */
+            gap: 1rem; /* Space between buttons */
             opacity: 0; /* Initially hidden */
             pointer-events: none; /* Disables interaction when hidden */
             transition: opacity 0.3s ease-in-out; /* Smooth fade in/out */
+            z-index: 10; /* Ensure controls are above the video */
         }
 
         .video-controls.show-controls {
@@ -166,7 +163,7 @@
         .video-controls button {
             background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white for buttons */
             color: white;
-            padding: 0.75rem 1rem; /* Slightly smaller padding for controls within video */
+            padding: 0.75rem 1rem; /* Padding for controls */
             border-radius: 9999px; /* full rounded */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             transition: background-color 0.2s, transform 0.2s;
@@ -198,6 +195,13 @@
             gap: 1.5rem;
             flex-grow: 1; /* Allow center group to take available space */
             justify-content: center;
+        }
+        
+        /* Custom Context Menu Styling */
+        #customContextMenu {
+            position: absolute;
+            z-index: 1000;
+            /* Using Tailwind classes in the HTML for styling */
         }
     </style>
 
@@ -245,54 +249,57 @@
 
             <!-- Center Group: Rewind, Play/Pause, Fast Forward -->
             <div class="video-controls-center">
-                <!-- Rewind Button -->
-                <button id="rewindBtn" class="apple-red-hover">
-                    <i class="fas fa-backward"></i>
-                </button>
-
-                <!-- Play/Pause Button -->
-                <button id="playPauseBtn" class="apple-red-hover">
-                    <i id="playPauseIcon" class="fas fa-play"></i>
-                </button>
-
-                <!-- Fast Forward Button -->
-                <button id="fastForwardBtn" class="apple-red-hover">
-                    <i class="fas fa-forward"></i>
-                </button>
+                <button id="rewindBtn" class="apple-red-hover"><i class="fas fa-backward"></i></button>
+                <button id="playPauseBtn" class="apple-red-hover"><i id="playPauseIcon" class="fas fa-play"></i></button>
+                <button id="fastForwardBtn" class="apple-red-hover"><i class="fas fa-forward"></i></button>
             </div>
 
             <!-- Right Group: Fullscreen Button -->
             <div class="video-controls-group right">
-                <button id="fullscreenBtn" class="apple-red-hover">
-                    <i id="fullscreenIcon" class="fas fa-expand"></i>
-                </button>
+                <button id="fullscreenBtn" class="apple-red-hover"><i id="fullscreenIcon" class="fas fa-expand"></i></button>
             </div>
         </div>
+        
+        <!-- Custom Context Menu -->
+        <div id="customContextMenu" class="hidden bg-black/50 backdrop-blur-md rounded-lg shadow-xl text-sm text-white">
+            <ul class="p-1">
+                <li id="versionInfoBtn" class="px-3 py-2 hover:bg-white/10 rounded cursor-pointer transition-colors">Version 1.0.0</li>
+                <li class="border-t border-white/20 my-1"></li>
+                <li>
+                    <a href="https://madebydanny.uk/videoglass" target="_blank" class="block px-3 py-2 hover:bg-white/10 rounded transition-colors">
+                        <i class="fas fa-external-link-alt mr-2"></i>Powered by Video Glass
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
 
                         </div>
                         <!-- Social Share -->
                         <div class="mt-8 border-t border-gray-200 pt-6">
                             <h3 class="text-lg font-semibold text-gray-800 mb-4">Share this post</h3>
                             <div class="flex items-center space-x-4">
-                               <a href="https://www.reddit.com/submit?title=iOS%2026%20Hands-on&url=https%3A%2F%2Fmadebydanny.uk%2Fios26" target="_blank" class="social-icon" aria-label="Share on Reddit">
+                               <a href="https://www.reddit.com/submit?title=6%20out%20of%205%20Stars&url=https%3A%2F%2Fmadebydanny.uk%2F6outof5stars" target="_blank" class="social-icon" aria-label="Share on Reddit">
   <i class="fa-brands fa-reddit"></i>
 </a>
 
-<a href="https://publish.buffer.com/compose?picture=https%3A%2F%2Fexample.com%2Fpath-to-ios26-image.jpg&text=iOS%2026%20Hands-on&url=https%3A%2F%2Fmadebydanny.uk%2Fios26&placement=hover_button_image" target="_blank" class="social-icon" aria-label="Share with Buffer">
+<a href="https://publish.buffer.com/compose?picture=https%3A%2F%2Fexample.com%2Fpath-to-6outof5stars-image.jpg&text=6%20out%20of%205%20Stars&url=https%3A%2F%2Fmadebydanny.uk%2F6outof5stars&placement=hover_button_image" target="_blank" class="social-icon" aria-label="Share with Buffer">
   <i class="fa-brands fa-buffer"></i>
 </a>
 
-<a href="https://bsky.app/intent/compose?text=https%3A%2F%2Fmadebydanny.uk%2Fios26" target="_blank" class="social-icon" aria-label="Share on Bluesky">
+<a href="https://bsky.app/intent/compose?text=https%3A%2F%2Fmadebydanny.uk%2F6outof5stars" target="_blank" class="social-icon" aria-label="Share on Bluesky">
   <i class="fa-brands fa-bluesky"></i>
 </a>
 
-<a href="https://www.threads.net/intent/post?text=iOS%2026%20Hands-on&url=https%3A%2F%2Fmadebydanny.uk%2Fios26" target="_blank">
+<a href="https://www.threads.net/intent/post?text=6%20out%20of%205%20Stars&url=https%3A%2F%2Fmadebydanny.uk%2F6outof5stars" target="_blank">
   <i class="fa-brands fa-threads"></i>
 </a>
 
-<a href="https://raindrop.madebydanny.uk/?add=1&link=https%3A%2F%2Fmadebydanny.uk%2Fios26&title=iOS%2026%20Hands-on%20%2F%20Danny%27s%20Blog" target="_blank" class="text-gray-700 hover:text-blue-600 transition-colors font-semibold">
+<a href="https://raindrop.madebydanny.uk/?add=1&link=https%3A%2F%2Fmadebydanny.uk%2F6outof5stars&title=6%20out%20of%205%20Stars%20%2F%20Danny%27s%20Blog" target="_blank" class="text-gray-700 hover:text-blue-600 transition-colors font-semibold">
   Save to Raindrop.io
 </a>
+
 
                             </div>
                         </div>
@@ -417,136 +424,122 @@
         const muteIcon = document.getElementById('muteIcon');
         const fullscreenBtn = document.getElementById('fullscreenBtn');
         const fullscreenIcon = document.getElementById('fullscreenIcon');
+        // Get reference to the new context menu
+        const customContextMenu = document.getElementById('customContextMenu');
+        const versionInfoBtn = document.getElementById('versionInfoBtn');
 
-        // Function to show controls
+        // --- Standard Video Player Logic ---
+
         function showControls() {
             videoControls.classList.add('show-controls');
         }
 
-        // Function to hide controls
         function hideControls() {
-            // Only hide if video is playing
             if (!video.paused && !video.ended) {
                 videoControls.classList.remove('show-controls');
             }
         }
 
-        // Function to toggle play/pause state
         function togglePlayPause() {
             if (video.paused || video.ended) {
                 video.play();
-                playPauseIcon.classList.remove('fa-play');
-                playPauseIcon.classList.add('fa-pause');
-                // Controls will hide after a brief moment if mouse leaves, handled by hideControls
             } else {
                 video.pause();
-                playPauseIcon.classList.remove('fa-pause');
-                playPauseIcon.classList.add('fa-play');
-                showControls(); // Always show controls when paused
             }
         }
 
-        // Function to rewind video by 5 seconds
-        function rewindVideo() {
-            video.currentTime = Math.max(0, video.currentTime - 5);
-        }
-
-        // Function to fast forward video by 5 seconds
-        function fastForwardVideo() {
-            video.currentTime = Math.min(video.duration, video.currentTime + 5);
-        }
-
-        // Function to toggle mute state
-        function toggleMute() {
-            video.muted = !video.muted;
-            if (video.muted) {
-                muteIcon.classList.remove('fa-volume-up');
-                muteIcon.classList.add('fa-volume-off');
-            } else {
-                muteIcon.classList.remove('fa-volume-off');
-                muteIcon.classList.add('fa-volume-up');
-            }
-        }
-
-        // Function to toggle fullscreen mode
+        function rewindVideo() { video.currentTime = Math.max(0, video.currentTime - 5); }
+        function fastForwardVideo() { video.currentTime = Math.min(video.duration, video.currentTime + 5); }
+        function toggleMute() { video.muted = !video.muted; }
+        
         function toggleFullscreen() {
-            if (document.fullscreenElement) {
-                // Currently in fullscreen, exit fullscreen
-                document.exitFullscreen();
+            if (!document.fullscreenElement) {
+                videoPlayerWrapper.requestFullscreen().catch(err => {
+                    alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+                });
             } else {
-                // Not in fullscreen, request fullscreen for the video player wrapper
-                if (videoPlayerWrapper.requestFullscreen) {
-                    videoPlayerWrapper.requestFullscreen();
-                } else if (videoPlayerWrapper.mozRequestFullScreen) { /* Firefox */
-                    videoPlayerWrapper.mozRequestFullScreen();
-                } else if (videoPlayerWrapper.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-                    videoPlayerWrapper.webkitRequestFullscreen();
-                } else if (videoPlayerWrapper.msRequestFullscreen) { /* IE/Edge */
-                    videoPlayerWrapper.msRequestFullscreen();
-                }
+                document.exitFullscreen();
             }
         }
 
-        // Event listener for fullscreen change (e.g., when exiting with Esc key)
-        document.addEventListener('fullscreenchange', () => {
-            if (document.fullscreenElement) {
-                fullscreenIcon.classList.remove('fa-expand');
-                fullscreenIcon.classList.add('fa-compress');
-            } else {
-                fullscreenIcon.classList.remove('fa-compress');
-                fullscreenIcon.classList.add('fa-expand');
-            }
-        });
-
-        // Event listeners for control buttons
+        // --- Event Listeners for Player Controls ---
         playPauseBtn.addEventListener('click', togglePlayPause);
         rewindBtn.addEventListener('click', rewindVideo);
         fastForwardBtn.addEventListener('click', fastForwardVideo);
         muteBtn.addEventListener('click', toggleMute);
         fullscreenBtn.addEventListener('click', toggleFullscreen);
 
-
-        // Event listeners for showing/hiding controls on hover
         videoPlayerWrapper.addEventListener('mouseenter', showControls);
         videoPlayerWrapper.addEventListener('mouseleave', hideControls);
 
-        // Event listener to update play/pause icon and control visibility
         video.addEventListener('play', () => {
-            playPauseIcon.classList.remove('fa-play');
-            playPauseIcon.classList.add('fa-pause');
-            // If the video is playing and mouse is not over, hide controls
-            if (!videoPlayerWrapper.matches(':hover')) {
-                hideControls();
-            }
+            playPauseIcon.classList.replace('fa-play', 'fa-pause');
+            if (!videoPlayerWrapper.matches(':hover')) hideControls();
         });
 
         video.addEventListener('pause', () => {
-            playPauseIcon.classList.remove('fa-pause');
-            playPauseIcon.classList.add('fa-play');
-            showControls(); // Always show controls when paused
+            playPauseIcon.classList.replace('fa-pause', 'fa-play');
+            showControls();
         });
 
         video.addEventListener('ended', () => {
-            playPauseIcon.classList.remove('fa-pause');
-            playPauseIcon.classList.add('fa-play');
-            showControls(); // Always show controls when ended
-        });
-
-        // Event listener to update mute icon if video mute state changes programmatically
-        video.addEventListener('volumechange', () => {
-            if (video.muted) {
-                muteIcon.classList.remove('fa-volume-up');
-                muteIcon.classList.add('fa-volume-off');
-            } else {
-                muteIcon.classList.remove('fa-volume-off');
-                muteIcon.classList.add('fa-volume-up');
-            }
-        });
-
-        // Initially show controls if video is paused (e.g., on page load)
-        if (video.paused || video.ended) {
+            playPauseIcon.classList.replace('fa-pause', 'fa-play');
             showControls();
-        }
-    </script
+        });
+
+        video.addEventListener('volumechange', () => {
+            muteIcon.className = video.muted ? 'fas fa-volume-off' : 'fas fa-volume-up';
+        });
+
+        document.addEventListener('fullscreenchange', () => {
+            fullscreenIcon.className = document.fullscreenElement ? 'fas fa-compress' : 'fas fa-expand';
+        });
+
+        if (video.paused || video.ended) showControls();
+
+        // --- Custom Context Menu Logic ---
+        
+        // Show custom context menu on right-click
+        videoPlayerWrapper.addEventListener('contextmenu', (e) => {
+            e.preventDefault(); // Prevent the default browser menu
+            
+            const rect = videoPlayerWrapper.getBoundingClientRect();
+            let x = e.clientX - rect.left;
+            let y = e.clientY - rect.top;
+
+            // Make sure the menu doesn't go off-screen
+            const menuWidth = customContextMenu.offsetWidth;
+            const menuHeight = customContextMenu.offsetHeight;
+            if (x + menuWidth > rect.width) {
+                x = rect.width - menuWidth;
+            }
+            if (y + menuHeight > rect.height) {
+                y = rect.height - menuHeight;
+            }
+
+            customContextMenu.style.top = `${y}px`;
+            customContextMenu.style.left = `${x}px`;
+            customContextMenu.classList.remove('hidden');
+        });
+
+        // Hide the menu when clicking elsewhere
+        window.addEventListener('click', () => {
+            customContextMenu.classList.add('hidden');
+        });
+        
+        // Do not hide the menu if a click happens inside it
+        customContextMenu.addEventListener('click', (e) => {
+             e.stopPropagation();
+        });
+        
+        // Optional: Add functionality to version button
+        versionInfoBtn.addEventListener('click', () => {
+            // For now, we'll just log it. A modal could be used here.
+            console.log('Video Glass Player Version 1.0.0');
+            // Hide menu after action
+            customContextMenu.classList.add('hidden');
+        });
+
+    </script>
 </body>
 </html>
