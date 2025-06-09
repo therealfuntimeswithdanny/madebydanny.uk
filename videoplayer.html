@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Video Player</title>
+    <!-- Tailwind CSS CDN for utility classes -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom CSS for apple red hover effect */
+        .apple-red-hover:hover {
+            color: #ff3b30; /* Apple Red color */
+        }
+        body {
+            font-family: "Inter", sans-serif;
+            background-color: #f0f2f5; /* Light gray background */
+        }
+        .video-player-wrapper {
+            position: relative; /* Needed for absolute positioning of controls */
+            max-width: 800px;
+            width: 100%;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+            overflow: hidden; /* Ensures rounded corners apply to content */
+        }
+
+        /* Ensure responsive video sizing */
+        video {
+            width: 100%;
+            height: auto;
+            display: block; /* Removes extra space below video */
+        }
+
+        .video-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)); /* Gradient background for controls */
+            padding: 1rem;
+            display: flex;
+            justify-content: center; /* Center existing controls */
+            align-items: center;
+            gap: 1rem; /* Space between buttons - slightly adjusted */
+            opacity: 0; /* Initially hidden */
+            pointer-events: none; /* Disables interaction when hidden */
+            transition: opacity 0.3s ease-in-out; /* Smooth fade in/out */
+        }
+
+        .video-controls.show-controls {
+            opacity: 1;
+            pointer-events: auto; /* Enables interaction when visible */
+        }
+
+        .video-controls button {
+            background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white for buttons */
+            color: white;
+            padding: 0.75rem 1rem; /* Slightly smaller padding for controls within video */
+            border-radius: 9999px; /* full rounded */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.2s, transform 0.2s;
+            font-size: 1.5rem; /* Larger icons */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer; /* Indicate button is clickable */
+        }
+
+        .video-controls button:hover {
+            background-color: rgba(255, 255, 255, 0.4); /* More opaque on hover */
+            transform: scale(1.1); /* Slightly larger on hover */
+        }
+
+        /* Custom spacing for mute and fullscreen buttons */
+        .video-controls-group {
+            display: flex;
+            align-items: center;
+        }
+        .video-controls-group.left {
+            margin-right: auto; /* Push left group to the left */
+        }
+        .video-controls-group.right {
+            margin-left: auto; /* Push right group to the right */
+        }
+        .video-controls-center {
+            display: flex;
+            gap: 1.5rem;
+            flex-grow: 1; /* Allow center group to take available space */
+            justify-content: center;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div id="videoPlayerWrapper" class="video-player-wrapper">
+        <!-- Video Element -->
+        <video id="myVideo" class="w-full h-auto" preload="metadata">
+            <!-- Replace with your video URL -->
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Video Controls Overlay -->
+        <div id="videoControls" class="video-controls">
+            <!-- Left Group: Mute Button -->
+            <div class="video-controls-group left">
+                <button id="muteBtn" class="apple-red-hover">
+                    <i id="muteIcon" class="fas fa-volume-up"></i>
+                </button>
+            </div>
+
+            <!-- Center Group: Rewind, Play/Pause, Fast Forward -->
+            <div class="video-controls-center">
+                <!-- Rewind Button -->
+                <button id="rewindBtn" class="apple-red-hover">
+                    <i class="fas fa-backward"></i>
+                </button>
+
+                <!-- Play/Pause Button -->
+                <button id="playPauseBtn" class="apple-red-hover">
+                    <i id="playPauseIcon" class="fas fa-play"></i>
+                </button>
+
+                <!-- Fast Forward Button -->
+                <button id="fastForwardBtn" class="apple-red-hover">
+                    <i class="fas fa-forward"></i>
+                </button>
+            </div>
+
+            <!-- Right Group: Fullscreen Button -->
+            <div class="video-controls-group right">
+                <button id="fullscreenBtn" class="apple-red-hover">
+                    <i id="fullscreenIcon" class="fas fa-expand"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get references to video and control elements
+        const videoPlayerWrapper = document.getElementById('videoPlayerWrapper');
+        const video = document.getElementById('myVideo');
+        const videoControls = document.getElementById('videoControls');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const playPauseIcon = document.getElementById('playPauseIcon');
+        const rewindBtn = document.getElementById('rewindBtn');
+        const fastForwardBtn = document.getElementById('fastForwardBtn');
+        const muteBtn = document.getElementById('muteBtn');
+        const muteIcon = document.getElementById('muteIcon');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const fullscreenIcon = document.getElementById('fullscreenIcon');
+
+        // Function to show controls
+        function showControls() {
+            videoControls.classList.add('show-controls');
+        }
+
+        // Function to hide controls
+        function hideControls() {
+            // Only hide if video is playing
+            if (!video.paused && !video.ended) {
+                videoControls.classList.remove('show-controls');
+            }
+        }
+
+        // Function to toggle play/pause state
+        function togglePlayPause() {
+            if (video.paused || video.ended) {
+                video.play();
+                playPauseIcon.classList.remove('fa-play');
+                playPauseIcon.classList.add('fa-pause');
+                // Controls will hide after a brief moment if mouse leaves, handled by hideControls
+            } else {
+                video.pause();
+                playPauseIcon.classList.remove('fa-pause');
+                playPauseIcon.classList.add('fa-play');
+                showControls(); // Always show controls when paused
+            }
+        }
+
+        // Function to rewind video by 5 seconds
+        function rewindVideo() {
+            video.currentTime = Math.max(0, video.currentTime - 5);
+        }
+
+        // Function to fast forward video by 5 seconds
+        function fastForwardVideo() {
+            video.currentTime = Math.min(video.duration, video.currentTime + 5);
+        }
+
+        // Function to toggle mute state
+        function toggleMute() {
+            video.muted = !video.muted;
+            if (video.muted) {
+                muteIcon.classList.remove('fa-volume-up');
+                muteIcon.classList.add('fa-volume-off');
+            } else {
+                muteIcon.classList.remove('fa-volume-off');
+                muteIcon.classList.add('fa-volume-up');
+            }
+        }
+
+        // Function to toggle fullscreen mode
+        function toggleFullscreen() {
+            if (document.fullscreenElement) {
+                // Currently in fullscreen, exit fullscreen
+                document.exitFullscreen();
+            } else {
+                // Not in fullscreen, request fullscreen for the video player wrapper
+                if (videoPlayerWrapper.requestFullscreen) {
+                    videoPlayerWrapper.requestFullscreen();
+                } else if (videoPlayerWrapper.mozRequestFullScreen) { /* Firefox */
+                    videoPlayerWrapper.mozRequestFullScreen();
+                } else if (videoPlayerWrapper.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+                    videoPlayerWrapper.webkitRequestFullscreen();
+                } else if (videoPlayerWrapper.msRequestFullscreen) { /* IE/Edge */
+                    videoPlayerWrapper.msRequestFullscreen();
+                }
+            }
+        }
+
+        // Event listener for fullscreen change (e.g., when exiting with Esc key)
+        document.addEventListener('fullscreenchange', () => {
+            if (document.fullscreenElement) {
+                fullscreenIcon.classList.remove('fa-expand');
+                fullscreenIcon.classList.add('fa-compress');
+            } else {
+                fullscreenIcon.classList.remove('fa-compress');
+                fullscreenIcon.classList.add('fa-expand');
+            }
+        });
+
+        // Event listeners for control buttons
+        playPauseBtn.addEventListener('click', togglePlayPause);
+        rewindBtn.addEventListener('click', rewindVideo);
+        fastForwardBtn.addEventListener('click', fastForwardVideo);
+        muteBtn.addEventListener('click', toggleMute);
+        fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+
+        // Event listeners for showing/hiding controls on hover
+        videoPlayerWrapper.addEventListener('mouseenter', showControls);
+        videoPlayerWrapper.addEventListener('mouseleave', hideControls);
+
+        // Event listener to update play/pause icon and control visibility
+        video.addEventListener('play', () => {
+            playPauseIcon.classList.remove('fa-play');
+            playPauseIcon.classList.add('fa-pause');
+            // If the video is playing and mouse is not over, hide controls
+            if (!videoPlayerWrapper.matches(':hover')) {
+                hideControls();
+            }
+        });
+
+        video.addEventListener('pause', () => {
+            playPauseIcon.classList.remove('fa-pause');
+            playPauseIcon.classList.add('fa-play');
+            showControls(); // Always show controls when paused
+        });
+
+        video.addEventListener('ended', () => {
+            playPauseIcon.classList.remove('fa-pause');
+            playPauseIcon.classList.add('fa-play');
+            showControls(); // Always show controls when ended
+        });
+
+        // Event listener to update mute icon if video mute state changes programmatically
+        video.addEventListener('volumechange', () => {
+            if (video.muted) {
+                muteIcon.classList.remove('fa-volume-up');
+                muteIcon.classList.add('fa-volume-off');
+            } else {
+                muteIcon.classList.remove('fa-volume-off');
+                muteIcon.classList.add('fa-volume-up');
+            }
+        });
+
+        // Initially show controls if video is paused (e.g., on page load)
+        if (video.paused || video.ended) {
+            showControls();
+        }
+    </script>
+</body>
+</html>
