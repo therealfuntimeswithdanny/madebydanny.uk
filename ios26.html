@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +6,7 @@
     <!-- =================================================================== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apple's new Liquid Glass / Danny's Blog</title>
+    <title>[Images] iOS 26 Hands on / Danny's Blog</title>
     <meta name="description" content="Apple has just announced Liquid Glass, a revolutionary update to the iOS interface.">
     <link rel="canonical" href="https://madebydanny.uk/blog/how-to-bluesky">
     
@@ -18,11 +17,11 @@
     <!-- =================================================================== -->
     <!-- Open Graph / Social Media Meta Tags -->
     <!-- =================================================================== -->
-    <meta property="og:title" content="Apple's new Liquid Glass / Danny's Blog">
-    <meta property="og:description" content="Apple has just announced Liquid Glass, a revolutionary update to the iOS interface.">
-    <meta property="og:url" content="https://madebydanny.uk/liquid-glass">
+    <meta property="og:title" content="[Images] iOS 26 Hands on / Danny's Blog">
+    <meta property="og:description" content="What's new in iOS 26?">
+    <meta property="og:url" content="https://madebydanny.uk/ios26">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://s.yimg.com/ny/api/res/1.2/059qSerY8lOzGqQ.dmIujQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTM2MA--/https://s.yimg.com/os/creatr-uploaded-images/2025-06/a9613fa0-4484-11f0-b7e3-afd5124d1785">
+    <meta property="og:image" content="https://static.madebydanny.uk/wwdc25/Apple-iOS-26.avif">
     <meta property="og:image:alt" content="The Bluesky social media logo with a bright blue sky background.">
     <meta property="og:site_name" content="Danny's Blog">
     <!-- For Twitter -->
@@ -35,6 +34,7 @@
     <!-- External Libraries & Fonts -->
     <!-- =================================================================== -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://blog-bg3.pages.dev/bluebird/api/v1.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -73,6 +73,50 @@
         .prose a {
             @apply text-blue-600 hover:underline;
         }
+        /* Gallery modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain; /* Ensure the image fits within the modal */
+        }
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        /* Adjust image size in prose for better display */
+        .prose img {
+            width: auto; /* Reset width to auto */
+            height: auto; /* Reset height to auto */
+            max-width: 100%; /* Ensure images don't overflow */
+            object-fit: contain; /* Ensure the image fits within its container without cropping */
+        }
 
     </style>
 
@@ -95,17 +139,29 @@
             <main class="lg:col-span-2">
                 
                 <article class="card">
-                    <img src="https://s.yimg.com/ny/api/res/1.2/059qSerY8lOzGqQ.dmIujQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTM2MA--/https://s.yimg.com/os/creatr-uploaded-images/2025-06/a9613fa0-4484-11f0-b7e3-afd5124d1785" loading="lazy" alt="The Bluesky social media logo with a bright blue sky background." class="w-full h-auto object-cover rounded-t-xl">
+                    <img src="https://static.madebydanny.uk/wwdc25/Apple-iOS-26.avif" loading="lazy" alt="iOS 26 Hands-on" class="w-full h-auto object-cover rounded-t-xl">
                     <div class="card-content">
                         <div class="mb-4 text-sm text-gray-500">By <a href="https://madebydanny.uk/startpage" target="_blank" rel="noopener noreferrer" class="font-semibold hover:text-gray-900">Daniel Morrisey</a> &bull; <time datetime="2025-05-28">May 28, 2025</time></div>
-                        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Apple's new Liquid Glass</h1>
-                        
+                        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">iOS 26 Hands on</h1>
                         <div class="prose max-w-none text-gray-700 text-lg">
-                            <p>Apple has just announced Liquid Glass, a revolutionary update to the iOS interface. This new design features transparency to create a 'Glass Feel,' complemented by smooth transitions and pixel-perfect animations. 
-                            <br>It's the most significant design change since iOS 7. The 'Fluid Like Design' ensures a cleaner and more intuitive iOS experience. Additionally, navbars now shrink as you scroll down, enhancing navigation efficiency. 
-                            <br>Menu items are now displayed vertically instead of horizontally, making them easier and more accessible for users. </p>
+                            <p>Apple has just announced Liquid Glass, a revolutionary update to the iOS interface. Here's a hands-on look at what's new in iOS 26:</p>
+                            
+                            <!-- Photo Gallery Section -->
+                            <h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Photo Gallery</h2>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+                                <img src="https://static.madebydanny.uk/wwdc25/Photo%20Jun%2009%202025%2C%2016%2015%2002%20(1).png" alt="iOS 26 Lock Screen with Music" class="gallery-thumbnail w-full h-48 object-cover rounded-lg shadow-md cursor-pointer hover:shadow-xl transition-shadow duration-300" onclick="openModal(this)">
+                                <img src="https://static.madebydanny.uk/wwdc25/Photo%20Jun%2009%202025%2C%2016%2015%2002%20(2).png" alt="iOS 26 Home Screen Widgets" class="gallery-thumbnail w-full h-48 object-cover rounded-lg shadow-md cursor-pointer hover:shadow-xl transition-shadow duration-300" onclick="openModal(this)">
+                                <img src="https://static.madebydanny.uk/wwdc25/Photo%20Jun%2009%202025%2C%2016%2015%2002%20(3).png" alt="iOS 26 Control Center" class="gallery-thumbnail w-full h-48 object-cover rounded-lg shadow-md cursor-pointer hover:shadow-xl transition-shadow duration-300" onclick="openModal(this)">
+                                <img src="https://static.madebydanny.uk/wwdc25/Photo%20Jun%2009%202025%2C%2016%2052%2013.png" alt="iOS 26 App Library" class="gallery-thumbnail w-full h-48 object-cover rounded-lg shadow-md cursor-pointer hover:shadow-xl transition-shadow duration-300" onclick="openModal(this)">
+                                <img src="https://static.madebydanny.uk/wwdc25/Photo%20Jun%2009%202025%2C%2016%2052%2013%20(1).png" alt="iOS 26 Settings App" class="gallery-thumbnail w-full h-48 object-cover rounded-lg shadow-md cursor-pointer hover:shadow-xl transition-shadow duration-300" onclick="openModal(this)">
+                                <img src="https://static.madebydanny.uk/wwdc25/Photo%20Jun%2009%202025%2C%2016%2055%2012.png" alt="iOS 26 Messages App" class="gallery-thumbnail w-full h-48 object-cover rounded-lg shadow-md cursor-pointer hover:shadow-xl transition-shadow duration-300" onclick="openModal(this)">
+                            </div>
+
+                            <p><i>The new Liquid Glass effect makes app icons and UI elements feel truly three-dimensional.</i></p>
+                            <p>We've spent a few hours with iOS 26 and here are our initial thoughts:</p>
+                            <p>The performance is incredibly smooth, even on older devices. Apple has clearly optimized the new animations and features to run seamlessly. The new Notification Center is also a huge improvement, offering more intelligent grouping and quick actions.</p>
+                            <p>Overall, iOS 26 feels like a significant leap forward in terms of user experience and visual design. We're excited to explore more of its hidden features in the coming weeks!</p>
                         </div>
-                        <img src="https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:lzyp6qjpmjwpqgszkplbju53/bafkreiciyji7qsc4yzqy5lpheqq5qqvvg3i25w6u3xd42nbmiw5hzqmos4@jpeg">
                         <!-- Social Share -->
                         <div class="mt-8 border-t border-gray-200 pt-6">
                             <h3 class="text-lg font-semibold text-gray-800 mb-4">Share this post</h3>
@@ -117,7 +173,6 @@
                                 <a href="https://raindrop.madebydanny.uk/?add=1&link=https%3A%2F%2Fmadebydanny.uk%2Fliquid-glass&title=Apple's+Liquid+Glass+%2F+Danny%27s+Blog" target="_blank" class="text-gray-700 hover:text-blue-600 transition-colors font-semibold">Save to Raindrop.io</a>
                             </div>
                         </div>
-
                         <!-- Comments Section -->
                         <div class="mt-10 border-t border-gray-200 pt-6">
                             <h2 class="text-2xl font-bold text-gray-900 mb-6">Comments</h2>
@@ -184,6 +239,12 @@
         </div>
     </div>
 
+    <!-- The Modal -->
+    <div id="myModal" class="modal" onclick="closeModal()">
+        <span class="close-button" >&times;</span>
+        <img class="modal-content" id="img01">
+    </div>
+
     <!-- Footer -->
     <footer class="bg-gray-800 text-gray-400 mt-16">
         <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center text-sm">
@@ -192,5 +253,33 @@
         </div>
     </footer>
     
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the image and insert it inside the modal - use its "alt" text as a caption
+        var modalImg = document.getElementById("img01");
+
+        function openModal(element) {
+            modal.style.display = "flex"; // Use flex to center the content
+            modalImg.src = element.src;
+            modalImg.alt = element.alt; // Set alt text for accessibility
+        }
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close-button")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        // Close the modal when clicking outside the image
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+    </script>
 </body>
 </html>
